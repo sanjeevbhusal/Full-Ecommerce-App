@@ -4,9 +4,11 @@ import {
    Route,
    Routes,
 } from "react-router-dom";
+
 import HomePage from "./pages/homepage/homepage.component";
 import "./App.css";
 import ShopPage from "./pages/shoppage/shoppage.component";
+import Header from "./components/header/header.component";
 
 const HatsPage = (props) => {
    console.log(props);
@@ -16,12 +18,11 @@ const HatsPage = (props) => {
 function App() {
    return (
       <BrowserRouter>
-         <div>
-            <Routes>
-               <Route path="/" element={<HomePage />} />
-               <Route path="/shop/hats" element={<ShopPage />} />
-            </Routes>
-         </div>
+         <Header />
+         <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop/" element={<ShopPage />} />
+         </Routes>
       </BrowserRouter>
    );
 }
