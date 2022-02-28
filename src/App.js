@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import "./App.css";
+import ShopPage from "./pages/shoppage/shoppage.component";
 
 const HatsPage = (props) => {
    console.log(props);
@@ -18,7 +19,7 @@ function App() {
          <div>
             <Routes>
                <Route path="/" element={<HomePage />} />
-               <Route path="/shop/hats" element={<HatsPage />} />
+               <Route path="/shop/hats" element={<ShopPage />} />
             </Routes>
          </div>
       </BrowserRouter>
