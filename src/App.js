@@ -1,30 +1,43 @@
-import {
-   BrowserRouter,
-   BrowserRouter as Router,
-   Route,
-   Routes,
-} from "react-router-dom";
+import { Component } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { onAuthStateChanged, authInstance } from "./firebase/fireabase.utils";
 
-import HomePage from "./pages/homepage/homepage.component";
-import "./App.css";
-import ShopPage from "./pages/shoppage/shoppage.component";
 import Header from "./components/header/header.component";
+import HomePage from "./pages/homepage/homepage.component";
+import ShopPage from "./pages/shoppage/shoppage.component";
+import SignInForm from "./components/signin-form/signinform.componenet";
+import "./App.css";
 
-const HatsPage = (props) => {
-   console.log(props);
-   return <p> This is hats Page </p>;
-};
+class App extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         currentUser: null,
+      };
+   }
 
-function App() {
-   return (
-      <BrowserRouter>
-         <Header />
-         <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/shop/" element={<ShopPage />} />
-         </Routes>
-      </BrowserRouter>
-   );
+   componentDidMount() {
+      this.unsubFromAuth = onAuthStateChanged(authInstance, (user) =>
+         this.setState({ currentUser: user })
+      );
+   }
+
+   componentWillUnmount() {
+      this.unsubFromAuth();
+   }
+
+   render() {
+      return (
+         <BrowserRouter>
+            <Header currentUser={this.state.currentUser} />
+            <Routes>
+               <Route path="/" element={<HomePage />} />
+               <Route path="/shop/" element={<ShopPage />} />
+               <Route path="/signin/" element={<SignInForm />} />
+            </Routes>
+         </BrowserRouter>
+      );
+   }
 }
 
 export default App;
