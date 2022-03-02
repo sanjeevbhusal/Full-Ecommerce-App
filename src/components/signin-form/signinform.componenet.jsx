@@ -2,10 +2,10 @@ import { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { signInWithGoogle } from "../../firebase/fireabase.utils";
+import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 import "./signinform.styles.scss";
-class SignInForm extends Component {
+class SignIn extends Component {
    state = {
       email: "",
       password: "",
@@ -56,4 +56,4 @@ class SignInForm extends Component {
    }
 }
 
-export default SignInForm;
+export default SignIn;
