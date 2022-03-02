@@ -2,7 +2,14 @@ import { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import {
+   firestoreDatabase,
+   doc,
+   getDoc,
+   signInWithGoogle,
+   signInWithEmailAndPassword,
+   authInstance,
+} from "../../firebase/firebase.utils";
 
 import "./signinform.styles.scss";
 class SignIn extends Component {
@@ -11,9 +18,32 @@ class SignIn extends Component {
       password: "",
    };
 
-   handleSubmit = (event) => {
+   handleSubmit = async (event) => {
+      const { email, password } = this.state;
       event.preventDefault();
-      this.setState({ email: "", password: "" });
+
+      //get a reference to the user stored in authentication.
+
+      try {
+         const { user } = await signInWithEmailAndPassword(
+            authInstance,
+            email,
+            password
+         );
+
+         //get the users details stored in firestsore based on that storred users uid.
+
+         const userRef = doc(firestoreDatabase, "users", user.uid);
+         const userDetails = await getDoc(userRef);
+
+         const data = userDetails.data();
+
+         console.log({ ...data, id: userDetails.id });
+
+         this.setState({ email: "", password: "" });
+      } catch (error) {
+         console.log("error", error);
+      }
    };
 
    handleChange = (event) => {
