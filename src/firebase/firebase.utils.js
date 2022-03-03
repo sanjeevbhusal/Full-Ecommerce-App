@@ -42,7 +42,7 @@ export const signInWithGoogle = () => {
 //adding in firestore database based upon the user's authentication info
 const createUserProfileDocument = async (userAuth, additionalData) => {
    const userRef = doc(firestoreDatabase, "users", userAuth.uid);
-   const userDetails = await getDoc(userRef);
+   let userDetails = await getDoc(userRef);
 
    if (!userDetails._document) {
       const { displayName, email } = userAuth;
@@ -58,6 +58,8 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
       } catch (error) {
          console.log("Error", error);
       }
+
+      userDetails = await getDoc(userRef);
    }
 
    return userDetails;
