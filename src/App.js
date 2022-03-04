@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user-actions";
 
-import Nothing from "./nothing";
-
 import {
    onAuthStateChanged,
    authInstance,
@@ -34,7 +32,6 @@ class App extends Component {
             } else {
                this.props.setCurrentUser(userAuth);
             }
-            console.log(userAuth);
          }
       );
    }

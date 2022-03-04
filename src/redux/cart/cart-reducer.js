@@ -1,5 +1,7 @@
+import filtercart from "./cart.utils";
 const initialState = {
    hidden: true,
+   cartItems: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -8,6 +10,12 @@ const cartReducer = (state = initialState, action) => {
          return {
             ...state,
             hidden: !state.hidden,
+         };
+
+      case "ADD_ITEMS_TO_CART":
+         return {
+            ...state,
+            cartItems: filtercart(state.cartItems, action.payload),
          };
 
       default:
