@@ -19,8 +19,17 @@
       display: block;
    }
 
+   :last-child {
+      cursor: pointer;
+   }
+
    .image-container img {
       width: 80%;
       height: 100%;
+   }
+
+   .arrow {
+      padding: 0 15px;
+      cursor: pointer;
    }
 }
