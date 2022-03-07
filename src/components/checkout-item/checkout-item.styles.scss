@@ -1,0 +1,26 @@
+.checkout-item {
+   display: flex;
+   justify-content: space-between;
+   height: 150px;
+   margin-bottom: 40px;
+   font-size: 18px;
+   gap: 20px;
+
+   > span,
+   > div {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      //   outline: 2px solid red;
+      align-items: center;
+   }
+
+   :first-child {
+      display: block;
+   }
+
+   .image-container img {
+      width: 80%;
+      height: 100%;
+   }
+}
