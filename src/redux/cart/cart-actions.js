@@ -11,3 +11,8 @@ export const delteItemsFromCart = (item) => ({
    type: "DELETE_ITEMS_FROM_CART",
    payload: item,
 });
+
+export const setCartItems = (cartItems) => ({
+   type: "SET_CART_ITEMS",
+   payload: cartItems,
+});
