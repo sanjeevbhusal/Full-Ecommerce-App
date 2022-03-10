@@ -1,14 +1,14 @@
 import SignUp from "../../components/sign-up-form/signupform.component";
 import SignIn from "../../components/signin-form/signinform.componenet";
 
-import "./signinandsignuppage.styles.scss";
+import { SignInAndSignUpContainer } from "./signinandsignuppage.styles";
 
 const SignInAndSignUpPage = () => {
    return (
-      <div className="sign-in-and-sign-up">
+      <SignInAndSignUpContainer>
          <SignIn />
          <SignUp />
-      </div>
+      </SignInAndSignUpContainer>
    );
 };
 

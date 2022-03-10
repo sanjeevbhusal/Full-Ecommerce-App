@@ -6,14 +6,16 @@ import { toggleCartHidden } from "../../redux/cart/cart-actions";
 
 import { ReactComponent as ShoppingIcon } from "../assets/cart-icon.svg";
 
-import "./cart-icon.styles.scss";
+import { CartIconContainer, CartIconNumber } from "./cart-icon.styles";
 
 const CartIcon = ({ toggleCartHidden, numberOfCartItems }) => {
    return (
-      <div className="cart-icon-container" onClick={toggleCartHidden}>
+      <CartIconContainer onClick={toggleCartHidden}>
          <ShoppingIcon className="cart-icon" />
-         <span className="cart-number">{numberOfCartItems}</span>
-      </div>
+         <CartIconNumber className="cart-number">
+            {numberOfCartItems}
+         </CartIconNumber>
+      </CartIconContainer>
    );
 };
 

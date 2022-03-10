@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 
 import { selectShopCollection } from "../../redux/shop/shop-selector";
 
-import CollectionPreview from "../../components/collection-preview/collection-preview.component";
-const CollectionPage = ({ collection }) => {
+import SingleCollection from "../../components/single- collection/single-collection.component";
+
+const CollectionPage = () => {
    const { productId } = useParams();
 
    const { title, items } = useSelector((state) =>
@@ -14,7 +15,7 @@ const CollectionPage = ({ collection }) => {
    return (
       <div>
          <h1>Category Component {productId}</h1>
-         <CollectionPreview title={title} items={items} />
+         <SingleCollection title={title} items={items} displayItems={10} />
       </div>
    );
 };

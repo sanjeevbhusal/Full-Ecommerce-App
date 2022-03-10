@@ -6,11 +6,11 @@ import { selectDirectorySections } from "../../redux/directory/directory-selecto
 
 import MenuItem from "../menu-item/menu-item.component";
 
-import "./directory.styles.scss";
+import { DirectoryContainer } from "./directory.styles";
 
 const Directory = ({ sections }) => {
    return (
-      <div className="menu-directory">
+      <DirectoryContainer>
          {sections.map(({ id, title, imageUrl, size, linkUrl }) => (
             <MenuItem
                key={id}
@@ -20,7 +20,7 @@ const Directory = ({ sections }) => {
                linkUrl={linkUrl}
             />
          ))}
-      </div>
+      </DirectoryContainer>
    );
 };
 

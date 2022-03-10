@@ -7,30 +7,36 @@ import { selectCartItemsTotal } from "../../redux/cart/cart-selectors";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import StripeButton from "../../components/stripe-button/stripe-button.component";
 
-import "./checkout.styles.scss";
+import {
+   Header,
+   CheckOutPage,
+   HeaderItems,
+   Price,
+   Warning,
+} from "./checkout.styles";
 
 const CheckoutPage = ({ cartItems, totalPrice, hideCartDropdown }) => {
    console.log(hideCartDropdown);
    return (
-      <div className="checkout-page">
-         <div className="checkout-header">
-            <span>Product</span>
-            <span>Description</span>
-            <span>Quantity</span>
-            <span>Price</span>
-            <span>Remove</span>
-         </div>
+      <CheckOutPage>
+         <Header>
+            <HeaderItems>Product</HeaderItems>
+            <HeaderItems>Description</HeaderItems>
+            <HeaderItems>Quantity</HeaderItems>
+            <HeaderItems>Price</HeaderItems>
+            <HeaderItems>Remove</HeaderItems>
+         </Header>
          {cartItems.map((cartItem) => (
             <CheckoutItem key={cartItem.id} cartItem={cartItem} />
          ))}
-         <div className="checkout-price">{`Total ${totalPrice} $`}</div>
-         <div className="test-warning">
+         <Price>{`Total ${totalPrice} $`}</Price>
+         <Warning>
             *Please use the following credit card details for payments*
             <br />
             4242 4242 4242 4242 - Exp : 01/22 - CVV : 123
-         </div>
+         </Warning>
          <StripeButton price={totalPrice} />
-      </div>
+      </CheckOutPage>
    );
 };
 

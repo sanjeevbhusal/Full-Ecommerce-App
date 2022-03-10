@@ -1,5 +1,5 @@
 import { Component } from "react";
-import FormInput from "../form-input/form-input.component";
+import InputField from "../input-field/input-field.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import {
@@ -11,7 +11,14 @@ import {
    authInstance,
 } from "../../firebase/firebase.utils";
 
-import "./signinform.styles.scss";
+import {
+   SignInContainer,
+   FormContainer,
+   Title,
+   Description,
+   ButtonGroup,
+} from "./signinform.styles";
+
 class SignIn extends Component {
    state = {
       email: "",
@@ -53,12 +60,12 @@ class SignIn extends Component {
 
    render() {
       return (
-         <div className="sign-in-container">
-            <h2>I already have an account</h2>
-            <span>Signin with your email and Password</span>
+         <SignInContainer>
+            <Title>I already have an account</Title>
+            <Description>Signin with your email and Password</Description>
 
-            <form onSubmit={this.handleSubmit}>
-               <FormInput
+            <FormContainer onSubmit={this.handleSubmit}>
+               <InputField
                   type="email"
                   name="email"
                   label="email"
@@ -67,21 +74,21 @@ class SignIn extends Component {
                   onChange={this.handleChange}
                />
 
-               <FormInput
+               <InputField
                   type="password"
                   name="password"
                   label="password"
                   value={this.state.password}
                   onChange={this.handleChange}
                />
-               <div className="sign-in-buttons">
+               <ButtonGroup>
                   <CustomButton type="submit">Sign In</CustomButton>
                   <CustomButton onClick={signInWithGoogle} isGoogleButton>
                      Sign In With Google
                   </CustomButton>
-               </div>
-            </form>
-         </div>
+               </ButtonGroup>
+            </FormContainer>
+         </SignInContainer>
       );
    }
 }

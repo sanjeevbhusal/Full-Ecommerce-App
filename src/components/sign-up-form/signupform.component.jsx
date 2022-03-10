@@ -1,14 +1,20 @@
 import { Component } from "react";
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
-
-import "./signupform.styles.scss";
 
 import {
    authInstance,
    createUserWithEmailAndPassword,
    createUserProfileDocument,
 } from "../../firebase/firebase.utils";
+
+import InputField from "../input-field/input-field.component";
+import CustomButton from "../custom-button/custom-button.component";
+
+import {
+   SignUpContainer,
+   FormContainer,
+   Title,
+   Description,
+} from "./signupform.styles";
 
 class SignUp extends Component {
    constructor() {
@@ -35,7 +41,7 @@ class SignUp extends Component {
          return;
       }
 
-      //Create a user with those credintials.
+      //Creates a user with those credintials.
       try {
          const { user } = await createUserWithEmailAndPassword(
             authInstance,
@@ -59,11 +65,11 @@ class SignUp extends Component {
    render() {
       const { displayName, email, password, confirmPassword } = this.state;
       return (
-         <div className="sign-up-container">
-            <h2>I donot have an account</h2>
-            <span> Create an account</span>
-            <form className="sign-up-form" onSubmit={this.handleSubmit}>
-               <FormInput
+         <SignUpContainer>
+            <Title>I donot have an account</Title>
+            <Description> Create an account</Description>
+            <FormContainer onSubmit={this.handleSubmit}>
+               <InputField
                   type="text"
                   name="displayName"
                   label="Display Name"
@@ -71,7 +77,7 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                   required
                />
-               <FormInput
+               <InputField
                   type="email"
                   name="email"
                   label="Email"
@@ -79,7 +85,7 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                   required
                />
-               <FormInput
+               <InputField
                   type="password"
                   name="password"
                   label="Password"
@@ -87,7 +93,7 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                   required
                />
-               <FormInput
+               <InputField
                   type="password"
                   name="confirmPassword"
                   label="Confirm Password"
@@ -96,8 +102,8 @@ class SignUp extends Component {
                   required
                />
                <CustomButton type="submit"> Sign-Up</CustomButton>
-            </form>
-         </div>
+            </FormContainer>
+         </SignUpContainer>
       );
    }
 }

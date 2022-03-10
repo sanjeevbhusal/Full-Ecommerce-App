@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import CollectionOverview from "../../components/collection-overview/collection-overview.component";
 
-import "./shoppage.styles.scss";
+import { Title } from "./shoppage.styles";
 
 const ShopPage = (props) => {
    return (
       <div className="shop-page">
-         <h1>Collection</h1>
+         <Title>Collection</Title>
          <CollectionOverview />
          <Outlet />
       </div>
