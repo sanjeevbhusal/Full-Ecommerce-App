@@ -5,11 +5,14 @@ import { createStructuredSelector } from "reselect";
 
 import { setCurrentUser } from "./redux/user/user-actions";
 import { selectCurrentUser } from "./redux/user/user-selector";
+import { selectShopData } from "./redux/shop/shop-selector";
 
 import {
-   onAuthStateChanged,
-   authInstance,
-   createUserProfileDocument,
+  onAuthStateChanged,
+  authInstance,
+  createUserProfileDocument,
+  onSnapshot,
+  addCollectionAndDocuments,
 } from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
@@ -22,59 +25,60 @@ import CollectionPage from "./pages/collection/collection.component";
 import "./App.css";
 
 class App extends Component {
-   unsubFromAuth = null;
-   componentDidMount() {
-      this.unsubFromAuth = onAuthStateChanged(
-         authInstance,
-         async (userAuth) => {
-            if (userAuth) {
-               const userDetails = await createUserProfileDocument(userAuth);
-               this.props.setCurrentUser({
-                  ...userDetails.data(),
-                  id: userDetails.id,
-               });
-            } else {
-               this.props.setCurrentUser(userAuth);
+  unsubFromAuth = null;
+
+  componentDidMount() {
+    const { setCurrentUser } = this.props;
+
+    this.unsubFromAuth = onAuthStateChanged(authInstance, async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        onSnapshot(userRef, (snapshot) => {
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubFromAuth();
+  }
+
+  render() {
+    const { currentUser } = this.props;
+    return (
+      <>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="shop" element={<ShopPage />}>
+            <Route path=":productId" element={<CollectionPage />}></Route>
+          </Route>
+          <Route
+            path="signin"
+            element={
+              currentUser ? <Navigate to="/" /> : <SignInAndSignUpPage />
             }
-         }
-      );
-   }
-
-   componentWillUnmount() {
-      this.unsubFromAuth();
-   }
-
-   render() {
-      const { currentUser } = this.props;
-      return (
-         <>
-            <Header />
-            <Routes>
-               <Route path="/" element={<HomePage />} />
-               <Route path="shop" element={<ShopPage />} />
-               <Route
-                  path="shop/:productId"
-                  element={<CollectionPage />}
-               ></Route>
-               <Route
-                  path="signin"
-                  element={
-                     currentUser ? <Navigate to="/" /> : <SignInAndSignUpPage />
-                  }
-               />
-               <Route path="checkout" element={<CheckoutPage />} />
-            </Routes>
-         </>
-      );
-   }
+          />
+          <Route path="checkout" element={<CheckoutPage />} />
+        </Routes>
+      </>
+    );
+  }
 }
 
 const mapStateToProps = createStructuredSelector({
-   currentUser: selectCurrentUser,
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
