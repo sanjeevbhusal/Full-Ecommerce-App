@@ -9,17 +9,17 @@ import directoryReducer from "./directory/directory-reducer";
 import shopReducer from "./shop/shop-reducer";
 
 const rootReducer = combineReducers({
-   user: userReducer,
-   cart: cartReducer,
-   directory: directoryReducer,
-   shop: shopReducer,
+  user: userReducer,
+  cart: cartReducer,
+  directory: directoryReducer,
+  shop: shopReducer,
 });
 
 //Persist Config
 const persistConfig = {
-   key: "root",
-   storage,
-   whiteList: ["cart"],
+  key: "root",
+  storage,
+  whiteList: ["cart"],
 };
 
 //Persisted Reducer

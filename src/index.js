@@ -14,13 +14,13 @@ import "./index.css";
 //By wrapping App with PersistGate, it will allow PersistGate to always receive the state provided by Provider and
 
 ReactDOM.render(
-   <Provider store={store}>
-      <BrowserRouter>
-         <PersistGate persistor={persistor}>
-            <App />
-         </PersistGate>
-      </BrowserRouter>
-   </Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </BrowserRouter>
+  </Provider>,
 
-   document.getElementById("root")
+  document.getElementById("root")
 );

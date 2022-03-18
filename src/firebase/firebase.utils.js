@@ -36,10 +36,7 @@ const firestoreDatabase = getFirestore();
 const batch = writeBatch(firestoreDatabase);
 
 //Google Sign-in
-const provider = new GoogleAuthProvider();
-export const signInWithGoogle = () => {
-  signInWithPopup(authInstance, provider);
-};
+const googleProvider = new GoogleAuthProvider();
 
 //adding in firestore database based upon the user's authentication info
 const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -94,6 +91,19 @@ const convertCollectionsSnapshotToMap = (collectionSnapshot) => {
   }, {});
 };
 
+function getCurrentUser() {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      authInstance,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+}
+
 export {
   onAuthStateChanged,
   authInstance,
@@ -108,4 +118,7 @@ export {
   addCollectionAndDocuments,
   getDocs,
   convertCollectionsSnapshotToMap,
+  googleProvider,
+  signInWithPopup,
+  getCurrentUser,
 };
