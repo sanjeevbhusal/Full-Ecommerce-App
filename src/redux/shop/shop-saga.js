@@ -37,7 +37,7 @@ function* fetchCollectionsStart() {
 }
 
 function* shopSagas() {
-  yield all(call(fetchCollectionsStart));
+  yield all([call(fetchCollectionsStart)]);
 }
 
 export default shopSagas;
